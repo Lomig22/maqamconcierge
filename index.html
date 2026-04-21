@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maqam Concierge — Voyages de Luxe en Arabie Saoudite</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold:     #C9A84C;
+      --gold-lt:  #E8C97A;
+      --sand:     #F5EDD8;
+      --sand-dk:  #E8D9BB;
+      --noir:     #0E0E0E;
+      --gris:     #5A5244;
+      --blanc:    #FAFAF8;
+      --font-ser: 'Cormorant Garamond', Georgia, serif;
+      --font-san: 'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-san);
+      background: var(--blanc);
+      color: var(--noir);
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; object-fit: cover; }
+
+    /* ─── Navbar ─────────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 4rem;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+    }
+    #navbar.scrolled {
+      background: rgba(14,14,14,.92);
+      backdrop-filter: blur(10px);
+      padding: 1rem 4rem;
+      box-shadow: 0 2px 24px rgba(0,0,0,.25);
+    }
+
+    .nav-logo {
+      font-family: var(--font-ser);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--blanc); font-weight: 300; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.4rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      position: relative;
+      transition: color .25s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--noir) !important;
+      background: var(--gold);
+      padding: .55rem 1.4rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .25s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1.5px; background: var(--blanc); transition: all .3s; }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=1800&q=80');
+      background-size: cover;
+      background-position: center 40%;
+      transform: scale(1.06);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,8,5,.55) 0%,
+        rgba(10,8,5,.28) 50%,
+        rgba(10,8,5,.72) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 780px;
+      padding: 0 2rem;
+      animation: fadeUp .9s ease both;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,.45);
+      padding: .4rem 1.2rem;
+      margin-bottom: 1.6rem;
+    }
+    .hero-title {
+      font-family: var(--font-ser);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: var(--blanc);
+      margin-bottom: 1.2rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-size: .85rem;
+      font-weight: 300;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 2.4rem;
+      line-height: 1.8;
+    }
+    .btn-primary {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--noir);
+      background: var(--gold);
+      padding: 1rem 2.6rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .25s, transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover {
+      background: var(--gold-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,.35);
+    }
+    .btn-outline {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--blanc);
+      border: 1px solid rgba(255,255,255,.5);
+      padding: .95rem 2.4rem;
+      border-radius: 2px;
+      text-decoration: none;
+      margin-left: 1.2rem;
+      transition: border-color .25s, color .25s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.5);
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      animation: bounce 2.4s infinite;
+    }
+    .hero-scroll svg { width: 18px; opacity: .6; }
+
+    /* ─── Section commons ────────────────────────────────────────── */
+    section { padding: 7rem 2rem; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: var(--font-ser);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--noir);
+      margin-bottom: 1.2rem;
+    }
+    .section-title em { font-style: italic; }
+    .section-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 1.6rem;
+    }
+    .section-desc {
+      font-size: .88rem;
+      line-height: 1.9;
+      color: var(--gris);
+      max-width: 560px;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .12s; }
+    .reveal-delay-2 { transition-delay: .24s; }
+    .reveal-delay-3 { transition-delay: .36s; }
+    .reveal-delay-4 { transition-delay: .48s; }
+
+    /* ─── À propos ───────────────────────────────────────────────── */
+    #about { background: var(--noir); color: var(--blanc); }
+    #about .section-title { color: var(--blanc); }
+    #about .section-desc { color: rgba(255,255,255,.65); max-width: 100%; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-wrap img {
+      height: 580px;
+      border-radius: 2px;
+    }
+    .about-image-accent {
+      position: absolute;
+      bottom: -1.8rem;
+      right: -1.8rem;
+      width: 55%;
+      height: 55%;
+      border: 2px solid var(--gold);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .about-stat-row {
+      display: flex;
+      gap: 2.4rem;
+      margin-top: 2.8rem;
+      padding-top: 2.4rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .about-stat { flex: 1; }
+    .about-stat-num {
+      font-family: var(--font-ser);
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-top: .4rem;
+    }
+
+    /* ─── Expériences ────────────────────────────────────────────── */
+    #experiences { background: var(--sand); }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.6rem;
+    }
+    .exp-card {
+      background: var(--blanc);
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      transition: transform .35s, box-shadow .35s;
+      cursor: pointer;
+    }
+    .exp-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.12);
+    }
+    .exp-card-img {
+      height: 240px;
+      overflow: hidden;
+    }
+    .exp-card-img img {
+      height: 100%;
+      transition: transform .6s ease;
+    }
+    .exp-card:hover .exp-card-img img { transform: scale(1.07); }
+    .exp-card-body { padding: 1.8rem; }
+    .exp-tag {
+      font-size: .6rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .6rem;
+    }
+    .exp-card-title {
+      font-family: var(--font-ser);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--noir);
+      margin-bottom: .7rem;
+      line-height: 1.3;
+    }
+    .exp-card-desc {
+      font-size: .8rem;
+      line-height: 1.8;
+      color: var(--gris);
+      margin-bottom: 1.2rem;
+    }
+    .exp-card-link {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: gap .2s;
+    }
+    .exp-card-link:hover { gap: .8rem; }
+    .exp-card-link::after { content: '→'; }
+
+    /* ─── Galerie ─────────────────────────────────────────────────── */
+    #gallery { background: var(--noir); padding-bottom: 5rem; }
+    #gallery .section-title { color: var(--blanc); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(3, 220px);
+      gap: .9rem;
+      margin-top: 3rem;
+    }
+    .g-item {
+      overflow: hidden;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .g-item img {
+      height: 100%;
+      transition: transform .5s ease, filter .5s;
+      filter: brightness(.88) saturate(.92);
+    }
+    .g-item:hover img { transform: scale(1.08); filter: brightness(1) saturate(1); }
+
+    .g-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 3; }
+    .g-item:nth-child(2) { grid-column: 6 / 9; grid-row: 1 / 2; }
+    .g-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1 / 2; }
+    .g-item:nth-child(4) { grid-column: 6 / 10; grid-row: 2 / 4; }
+    .g-item:nth-child(5) { grid-column: 10 / 13; grid-row: 2 / 3; }
+    .g-item:nth-child(6) { grid-column: 1 / 4; grid-row: 3 / 4; }
+    .g-item:nth-child(7) { grid-column: 4 / 6; grid-row: 3 / 4; }
+    .g-item:nth-child(8) { grid-column: 10 / 13; grid-row: 3 / 4; }
+
+    /* ─── Pourquoi nous ──────────────────────────────────────────── */
+    #why { background: var(--blanc); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.4rem;
+      margin-top: 4rem;
+    }
+    .why-card {
+      padding: 2.4rem 2rem;
+      border: 1px solid var(--sand-dk);
+      border-radius: 3px;
+      text-align: center;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+    }
+    .why-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 36px rgba(201,168,76,.12);
+      transform: translateY(-4px);
+    }
+    .why-icon {
+      width: 54px;
+      height: 54px;
+      background: var(--sand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.4rem;
+    }
+    .why-icon svg { width: 24px; color: var(--gold); }
+    .why-card-title {
+      font-family: var(--font-ser);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: .65rem;
+    }
+    .why-card-desc {
+      font-size: .78rem;
+      line-height: 1.85;
+      color: var(--gris);
+    }
+
+    /* ─── Témoignages ────────────────────────────────────────────── */
+    #testimonials { background: var(--sand); overflow: hidden; }
+
+    .testi-wrapper {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3.4rem;
+    }
+    .testi-card {
+      flex: 1;
+      background: var(--blanc);
+      padding: 2.4rem;
+      border-radius: 3px;
+      position: relative;
+    }
+    .testi-quote {
+      font-family: var(--font-ser);
+      font-size: 3.5rem;
+      color: var(--gold);
+      line-height: .8;
+      margin-bottom: .6rem;
+    }
+    .testi-text {
+      font-family: var(--font-ser);
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--gris);
+      margin-bottom: 1.4rem;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+    .testi-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      overflow: hidden;
+    }
+    .testi-name {
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--noir);
+    }
+    .testi-origin {
+      font-size: .68rem;
+      color: var(--gris);
+      margin-top: .1rem;
+    }
+    .testi-stars { color: var(--gold); font-size: .85rem; letter-spacing: .05em; }
+
+    /* ─── CTA ────────────────────────────────────────────────────── */
+    #cta {
+      background: linear-gradient(135deg, #0E0E0E 0%, #1A1610 100%);
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: .04;
+      background-image:
+        repeating-linear-gradient(45deg, #C9A84C 0, #C9A84C 1px, transparent 0, transparent 50%);
+      background-size: 20px 20px;
+    }
+    .cta-inner { position: relative; }
+    .cta-label {
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .9rem;
+    }
+    .cta-title {
+      font-family: var(--font-ser);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      color: var(--blanc);
+      line-height: 1.18;
+      margin-bottom: 1.3rem;
+    }
+    .cta-title em { font-style: italic; color: var(--gold-lt); }
+    .cta-sub {
+      font-size: .85rem;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 2.8rem;
+      letter-spacing: .04em;
+    }
+    .cta-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── Réseaux sociaux ────────────────────────────────────────── */
+    #social { background: var(--sand); text-align: center; padding: 5rem 2rem; }
+
+    .social-links {
+      display: flex;
+      gap: 1.4rem;
+      justify-content: center;
+      margin-top: 2.4rem;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .85rem 1.8rem;
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      color: var(--noir);
+      background: var(--blanc);
+      transition: background .25s, color .25s, border-color .25s, transform .2s;
+    }
+    .social-btn svg { width: 18px; flex-shrink: 0; }
+    .social-btn:hover {
+      background: var(--noir);
+      color: var(--blanc);
+      border-color: var(--noir);
+      transform: translateY(-2px);
+    }
+    .social-btn.whatsapp:hover { background: #25D366; border-color: #25D366; }
+    .social-btn.instagram:hover { background: #E1306C; border-color: #E1306C; }
+    .social-btn.tiktok:hover { background: #000; border-color: #000; }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    footer {
+      background: var(--noir);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--font-ser);
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--gold);
+      margin-bottom: .6rem;
+    }
+    .footer-logo span { font-weight: 300; color: rgba(255,255,255,.7); }
+    .footer-tagline {
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.28);
+      margin-bottom: 2rem;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      list-style: none;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-nav a {
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-copy {
+      font-size: .65rem;
+      color: rgba(255,255,255,.2);
+      letter-spacing: .08em;
+    }
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(201,168,76,.35);
+      margin: 0 auto 2rem;
+    }
+
+    /* ─── Lightbox ───────────────────────────────────────────────── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-height: 85vh; max-width: 90vw; object-fit: contain; border-radius: 2px; }
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-size: 2rem;
+      color: rgba(255,255,255,.7);
+      cursor: pointer;
+      line-height: 1;
+    }
+    #lightbox-close:hover { color: var(--gold); }
+
+    /* ─── Animations ─────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      #navbar { padding: 1.2rem 2.5rem; }
+      #navbar.scrolled { padding: .9rem 2.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap img { height: 380px; }
+      .about-image-accent { display: none; }
+
+      .exp-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 5rem 1.4rem; }
+      #navbar { padding: 1rem 1.4rem; }
+      #navbar.scrolled { padding: .8rem 1.4rem; }
+
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,14,14,.97);
+        align-items: center;
+        justify-content: center;
+        gap: 2.4rem;
+        z-index: 99;
+      }
+      .nav-links.open a { font-size: 1.1rem; letter-spacing: .12em; }
+
+      .hero-title { font-size: 2.4rem; }
+      .btn-outline { margin-left: 0; margin-top: .8rem; }
+
+      .exp-grid { grid-template-columns: 1fr; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
+      }
+      .g-item { grid-column: auto !important; grid-row: auto !important; height: 200px; }
+
+      .why-grid { grid-template-columns: 1fr; }
+
+      .testi-wrapper { flex-direction: column; }
+
+      .social-links { flex-direction: column; align-items: center; }
+
+      .about-stat-row { flex-direction: column; gap: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ NAVBAR -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Maqam <span>Concierge</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#experiences">Expériences</a></li>
+      <li><a href="#gallery">Galerie</a></li>
+      <li><a href="#why">Nos atouts</a></li>
+      <li><a href="#cta" class="nav-cta">Réserver</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════ HERO -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Agence de Voyage Premium · Arabie Saoudite</div>
+      <h1 class="hero-title">
+        Découvrez l'Arabie Saoudite<br /><em>autrement</em>
+      </h1>
+      <p class="hero-sub">
+        Des voyages sur mesure, façonnés selon vos désirs.<br />
+        Culture, désert, luxe et authenticité — une expérience unique, rien que pour vous.
+      </p>
+      <div>
+        <a href="#cta" class="btn-primary">Réserver mon voyage</a>
+        <a href="#experiences" class="btn-outline">Nos expériences</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Découvrir</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ À PROPOS -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrap reveal">
+          <img
+            src="https://images.unsplash.com/photo-1586155774685-21bb70af2592?w=900&q=80"
+            alt="Arabie Saoudite — Hegra"
+          />
+          <div class="about-image-accent"></div>
+        </div>
+        <div>
+          <p class="section-label reveal">Notre histoire</p>
+          <h2 class="section-title reveal reveal-delay-1">
+            L'expertise locale<br />au service de votre <em>rêve</em>
+          </h2>
+          <div class="section-divider reveal reveal-delay-2"></div>
+          <p class="section-desc reveal reveal-delay-2">
+            Maqam Concierge est né d'une passion profonde pour l'Arabie Saoudite et de l'envie de la faire découvrir au monde entier. Nous ne proposons pas des voyages, nous créons des expériences — chaque itinéraire est conçu sur mesure, chaque détail pensé pour vous.
+          </p>
+          <p class="section-desc reveal reveal-delay-3" style="margin-top:1rem;">
+            Forts de notre réseau de partenaires locaux, de nos guides certifiés et de notre connaissance intime du pays, nous vous offrons un accès privilégié aux merveilles d'un royaume en pleine renaissance.
+          </p>
+          <div class="about-stat-row reveal reveal-delay-4">
+            <div class="about-stat">
+              <div class="about-stat-num">250+</div>
+              <div class="about-stat-label">Voyages réalisés</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">18</div>
+              <div class="about-stat-label">Destinations exclusives</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">98%</div>
+              <div class="about-stat-label">Clients satisfaits</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ EXPÉRIENCES -->
+  <section id="experiences">
+    <div class="container">
+      <p class="section-label reveal">Ce que nous proposons</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        Des expériences<br /><em>inoubliables</em>
+      </h2>
+      <div class="section-divider reveal reveal-delay-2"></div>
+
+      <div class="exp-grid">
+        <!-- Card 1 -->
+        <div class="exp-card reveal reveal-delay-1">
+          <div class="exp-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=700&q=80"
+              alt="Désert — Rub al-Khali"
+            />
+          </div>
+          <div class="exp-card-body">
+            <div class="exp-tag">Aventure &amp; Nature</div>
+            <h3 class="exp-card-title">Nuit dans le désert de l'Empty Quarter</h3>
+            <p class="exp-card-desc">
+              Dormez sous les étoiles au cœur du Rub al-Khali, le plus grand désert de sable du monde. Campement luxueux, coucher de soleil sur les dunes et dîner traditionnel.
+            </p>
+            <a href="#cta" class="exp-card-link">En savoir plus</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="exp-card reveal reveal-delay-2">
+          <div class="exp-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?w=700&q=80"
+              alt="AlUla — Hegra"
+            />
+          </div>
+          <div class="exp-card-body">
+            <div class="exp-tag">Culture &amp; Patrimoine</div>
+            <h3 class="exp-card-title">AlUla &amp; les tombeaux de l'ère nabatéenne</h3>
+            <p class="exp-card-desc">
+              Partez à la découverte de Hegra, site archéologique classé à l'UNESCO. Explorez des tombeaux vieux de 2 000 ans dans un paysage de grès rouge à couper le souffle.
+            </p>
+            <a href="#cta" class="exp-card-link">En savoir plus</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="exp-card reveal reveal-delay-3">
+          <div class="exp-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1578161613578-59a92a3a4a2e?w=700&q=80"
+              alt="Riyadh — Hôtel de luxe"
+            />
+          </div>
+          <div class="exp-card-body">
+            <div class="exp-tag">Luxe &amp; Raffinement</div>
+            <h3 class="exp-card-title">Séjour Prestige à Riyad &amp; Djeddah</h3>
+            <p class="exp-card-desc">
+              Suites palatiales, restaurants étoilés et expériences VIP dans les deux capitales de l'Arabie moderne — entre skyline futuriste et corniche baignée de lumière.
+            </p>
+            <a href="#cta" class="exp-card-link">En savoir plus</a>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="exp-card reveal reveal-delay-1">
+          <div class="exp-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1547451421-9c24e91a4b00?w=700&q=80"
+              alt="Mer Rouge — Plongée"
+            />
+          </div>
+          <div class="exp-card-body">
+            <div class="exp-tag">Mer &amp; Évasion</div>
+            <h3 class="exp-card-title">Les fonds vierges de la Mer Rouge</h3>
+            <p class="exp-card-desc">
+              Plongez dans des eaux cristallines préservées, habitées de récifs coralliens intacts et d'une faune marine extraordinaire. L'un des derniers sanctuaires marins du monde.
+            </p>
+            <a href="#cta" class="exp-card-link">En savoir plus</a>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="exp-card reveal reveal-delay-2">
+          <div class="exp-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1518013431117-eb1465fa5752?w=700&q=80"
+              alt="Cuisine saoudienne"
+            />
+          </div>
+          <div class="exp-card-body">
+            <div class="exp-tag">Gastronomie</div>
+            <h3 class="exp-card-title">Gastronomie saoudienne &amp; art de vivre</h3>
+            <p class="exp-card-desc">
+              Cours de cuisine avec des chefs locaux, marchés aux épices, dîners chez l'habitant et expériences de la cérémonie du café arabe — une immersion des sens.
+            </p>
+            <a href="#cta" class="exp-card-link">En savoir plus</a>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="exp-card reveal reveal-delay-3">
+          <div class="exp-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1493505558547-6efde695c7b8?w=700&q=80"
+              alt="Safari fauconnerie"
+            />
+          </div>
+          <div class="exp-card-body">
+            <div class="exp-tag">Traditions</div>
+            <h3 class="exp-card-title">Fauconnerie &amp; Safari saoudien</h3>
+            <p class="exp-card-desc">
+              Art royal inscrit au patrimoine immatériel de l'UNESCO, la fauconnerie vous plonge au cœur de la culture bédouine. Une expérience unique et profondément émouvante.
+            </p>
+            <a href="#cta" class="exp-card-link">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ GALERIE -->
+  <section id="gallery">
+    <div class="container">
+      <p class="section-label reveal" style="color:var(--gold)">Visuels</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        L'Arabie Saoudite<br />en <em>images</em>
+      </h2>
+    </div>
+    <div class="container">
+      <div class="gallery-grid">
+        <div class="g-item reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=900&q=80" alt="Hegra rochers" />
+        </div>
+        <div class="g-item reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=700&q=80" alt="Dunes de sable" />
+        </div>
+        <div class="g-item reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1601136177516-69eb98e3eda4?w=700&q=80" alt="Mosquée" />
+        </div>
+        <div class="g-item reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1603796846097-bee99e4a601f?w=700&q=80" alt="Caravane désert" />
+        </div>
+        <div class="g-item reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1547451421-9c24e91a4b00?w=700&q=80" alt="Mer Rouge" />
+        </div>
+        <div class="g-item reveal reveal-delay-4">
+          <img src="https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?w=700&q=80" alt="AlUla paysage" />
+        </div>
+        <div class="g-item reveal reveal-delay-4">
+          <img src="https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=700&q=80" alt="Nuit étoilée désert" />
+        </div>
+        <div class="g-item reveal reveal-delay-4">
+          <img src="https://images.unsplash.com/photo-1586155774685-21bb70af2592?w=700&q=80" alt="Roche sculptée" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ POURQUOI NOUS -->
+  <section id="why">
+    <div class="container" style="text-align:center;">
+      <p class="section-label reveal">Nos engagements</p>
+      <h2 class="section-title reveal reveal-delay-1" style="margin:0 auto;">
+        Pourquoi choisir<br /><em>Maqam Concierge</em> ?
+      </h2>
+      <div class="section-divider reveal reveal-delay-2" style="margin:1.2rem auto 0;"></div>
+    </div>
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-card reveal reveal-delay-1">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+            </svg>
+          </div>
+          <h3 class="why-card-title">100 % Sur mesure</h3>
+          <p class="why-card-desc">Chaque voyage est conçu exclusivement pour vous. Aucun itinéraire standard, aucun groupe. Votre voyage, vos règles.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-2">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 class="why-card-title">Expertise locale</h3>
+          <p class="why-card-desc">Notre équipe est née et a grandi en Arabie Saoudite. Nous connaissons chaque recoin, chaque tradition, chaque secret du royaume.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-3">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="why-card-title">Accompagnement 24h/7j</h3>
+          <p class="why-card-desc">Un concierge dédié, disponible à toute heure. De la planification au retour, vous n'êtes jamais seul face à l'inconnu.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-4">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3 class="why-card-title">Expérience premium</h3>
+          <p class="why-card-desc">Hébergements 5 étoiles, transferts privés, accès exclusifs — nous sélectionnons uniquement le meilleur pour que votre séjour soit parfait.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ TÉMOIGNAGES -->
+  <section id="testimonials">
+    <div class="container">
+      <p class="section-label reveal">Ils nous font confiance</p>
+      <h2 class="section-title reveal reveal-delay-1">Ce que disent<br /><em>nos voyageurs</em></h2>
+      <div class="section-divider reveal reveal-delay-2"></div>
+
+      <div class="testi-wrapper">
+        <div class="testi-card reveal reveal-delay-1">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Une expérience absolument magique. Maqam Concierge a tout organisé à la perfection — d'AlUla au désert, chaque moment était digne d'un rêve. Je repars l'année prochaine sans hésiter.</p>
+          <div class="testi-author">
+            <img class="testi-avatar" src="https://i.pravatar.cc/88?img=47" alt="Sophie M." />
+            <div>
+              <div class="testi-name">Sophie M.</div>
+              <div class="testi-origin">Paris, France</div>
+            </div>
+            <div class="testi-stars" style="margin-left:auto;">★★★★★</div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal reveal-delay-2">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Ce qui m'a impressionné, c'est l'attention aux détails. Ils savent ce que signifie "sur mesure". Notre guide parlait français parfaitement et connaissait le pays comme sa poche.</p>
+          <div class="testi-author">
+            <img class="testi-avatar" src="https://i.pravatar.cc/88?img=12" alt="Karim B." />
+            <div>
+              <div class="testi-name">Karim B.</div>
+              <div class="testi-origin">Bruxelles, Belgique</div>
+            </div>
+            <div class="testi-stars" style="margin-left:auto;">★★★★★</div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal reveal-delay-3">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">L'Arabie Saoudite m'avait toujours semblé inaccessible. Grâce à Maqam, j'ai découvert un pays d'une richesse incroyable, avec un accueil chaleureux et des expériences que je n'oublierai jamais.</p>
+          <div class="testi-author">
+            <img class="testi-avatar" src="https://i.pravatar.cc/88?img=32" alt="Nathalie R." />
+            <div>
+              <div class="testi-name">Nathalie R.</div>
+              <div class="testi-origin">Genève, Suisse</div>
+            </div>
+            <div class="testi-stars" style="margin-left:auto;">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ CTA -->
+  <section id="cta">
+    <div class="cta-pattern"></div>
+    <div class="container cta-inner" style="text-align:center; max-width:760px;">
+      <p class="cta-label reveal">Votre voyage commence ici</p>
+      <h2 class="cta-title reveal reveal-delay-1">
+        Prêt à vivre une expérience<br /><em>hors du commun</em> ?
+      </h2>
+      <p class="cta-sub reveal reveal-delay-2">
+        Partagez-nous vos envies, nous concevons l'itinéraire de vos rêves.<br />
+        Consultation gratuite · Réponse sous 24h
+      </p>
+      <div class="cta-buttons reveal reveal-delay-3">
+        <a href="mailto:contact@maqamconcierge.com" class="btn-primary">Réserver mon voyage</a>
+        <a href="https://wa.me/966500000000" target="_blank" class="btn-outline">Nous contacter sur WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ RÉSEAUX SOCIAUX -->
+  <section id="social">
+    <div class="container" style="max-width:600px; text-align:center;">
+      <p class="section-label reveal">Suivez l'aventure</p>
+      <h2 class="section-title reveal reveal-delay-1" style="font-size:2rem; margin:0 auto;">
+        Rejoignez notre<br /><em>communauté</em>
+      </h2>
+      <p class="section-desc reveal reveal-delay-2" style="margin:1rem auto 0; text-align:center;">
+        Retrouvez nos inspirations de voyage, coulisses et offres exclusives.
+      </p>
+      <div class="social-links reveal reveal-delay-3">
+        <a href="#" class="social-btn instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/>
+          </svg>
+          Instagram
+        </a>
+        <a href="https://wa.me/966500000000" target="_blank" class="social-btn whatsapp" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a href="#" class="social-btn tiktok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+          </svg>
+          TikTok
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FOOTER -->
+  <footer>
+    <div class="footer-logo">Maqam <span>Concierge</span></div>
+    <p class="footer-tagline">Voyages de luxe sur mesure · Arabie Saoudite</p>
+    <div class="footer-divider"></div>
+    <ul class="footer-nav">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#experiences">Expériences</a></li>
+      <li><a href="#gallery">Galerie</a></li>
+      <li><a href="#why">Nos atouts</a></li>
+      <li><a href="#cta">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Maqam Concierge · Tous droits réservés</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════ LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <span id="lightbox-close" aria-label="Fermer">&times;</span>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script>
+    // ── Navbar scroll effect ───────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Hamburger menu ─────────────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => navLinks.classList.remove('open'))
+    );
+
+    // ── Reveal on scroll ───────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // ── Hero background parallax & load ───────────────────────────
+    const heroBg = document.getElementById('heroBg');
+    setTimeout(() => heroBg.classList.add('loaded'), 100);
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight)
+        heroBg.style.transform = `scale(1) translateY(${y * 0.28}px)`;
+    }, { passive: true });
+
+    // ── Gallery lightbox ───────────────────────────────────────────
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.g-item img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── Smooth active nav highlight ────────────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navAs    = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+    const sectionIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navAs.forEach(a => {
+            a.style.color = a.getAttribute('href') === `#${e.target.id}`
+              ? 'var(--gold)'
+              : '';
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -40% 0px' });
+    sections.forEach(s => sectionIo.observe(s));
+  </script>
+</body>
+</html>
