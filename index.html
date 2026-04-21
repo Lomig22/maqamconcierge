@@ -564,8 +564,111 @@
     }
     .cta-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
 
+    /* ─── Formulaire de contact ──────────────────────────────────── */
+    #contact { background: var(--sand); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 4rem;
+    }
+    .contact-info-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+    .contact-info-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--blanc);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-info-icon svg { width: 18px; color: var(--gold); }
+    .contact-info-label {
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+    .contact-info-val {
+      font-size: .85rem;
+      color: var(--gris);
+      line-height: 1.6;
+    }
+    .contact-form {
+      background: var(--blanc);
+      padding: 2.8rem;
+      border-radius: 3px;
+      box-shadow: 0 4px 32px rgba(0,0,0,.06);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-bottom: .5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: .85rem 1rem;
+      border: 1px solid var(--sand-dk);
+      border-radius: 2px;
+      background: var(--blanc);
+      font-family: var(--font-san);
+      font-size: .82rem;
+      color: var(--noir);
+      outline: none;
+      transition: border-color .25s, box-shadow .25s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5244' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .form-submit { width: 100%; padding: 1rem; font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--noir); background: var(--gold); border: none; border-radius: 2px; cursor: pointer; transition: background .25s, transform .2s, box-shadow .2s; }
+    .form-submit:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,.3); }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .form-success svg { width: 48px; color: var(--gold); margin-bottom: 1rem; }
+    .form-success h4 { font-family: var(--font-ser); font-size: 1.6rem; font-weight: 300; margin-bottom: .5rem; }
+    .form-success p { font-size: .82rem; color: var(--gris); }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 1.8rem; }
+    }
+
     /* ─── Réseaux sociaux ────────────────────────────────────────── */
-    #social { background: var(--sand); text-align: center; padding: 5rem 2rem; }
+    #social { background: var(--blanc); text-align: center; padding: 5rem 2rem; }
 
     .social-links {
       display: flex;
@@ -747,6 +850,7 @@
       <li><a href="#experiences">Expériences</a></li>
       <li><a href="#gallery">Galerie</a></li>
       <li><a href="#why">Nos atouts</a></li>
+      <li><a href="#contact">Contact</a></li>
       <li><a href="#cta" class="nav-cta">Réserver</a></li>
     </ul>
     <div class="hamburger" id="hamburger" aria-label="Menu">
@@ -786,7 +890,7 @@
       <div class="about-grid">
         <div class="about-image-wrap reveal">
           <img
-            src="https://images.unsplash.com/photo-1586155774685-21bb70af2592?w=900&q=80"
+            src="https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=900&q=80"
             alt="Arabie Saoudite — Hegra"
           />
           <div class="about-image-accent"></div>
@@ -1105,6 +1209,135 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ FORMULAIRE CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label reveal">Parlons de votre voyage</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        Contactez-nous,<br /><em>nous répondons sous 24h</em>
+      </h2>
+      <div class="section-divider reveal reveal-delay-2"></div>
+
+      <div class="contact-grid">
+        <!-- Infos -->
+        <div>
+          <p class="section-desc reveal reveal-delay-2" style="margin-bottom:2.8rem;">
+            Chaque voyage commence par une conversation. Dites-nous vos envies, vos dates, vos inspirations — nous ferons le reste.
+          </p>
+
+          <div class="contact-info-item reveal reveal-delay-2">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.3 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-info-label">WhatsApp &amp; Téléphone</div>
+              <div class="contact-info-val">+33 1 23 45 67 89</div>
+            </div>
+          </div>
+
+          <div class="contact-info-item reveal reveal-delay-3">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Email</div>
+              <div class="contact-info-val">contact@maqamconcierge.com</div>
+            </div>
+          </div>
+
+          <div class="contact-info-item reveal reveal-delay-4">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Disponibilité</div>
+              <div class="contact-info-val">Lun – Sam · 9h – 20h (heure de Paris)<br />Réponse garantie sous 24h</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="contact-form reveal reveal-delay-2">
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">Prénom</label>
+                <input type="text" id="fname" name="fname" placeholder="Sophie" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Nom</label>
+                <input type="text" id="lname" name="lname" placeholder="Martin" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="sophie@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Téléphone</label>
+                <input type="tel" id="phone" name="phone" placeholder="+33 6 …" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="destination">Type d'expérience</label>
+              <select id="destination" name="destination">
+                <option value="">— Choisissez —</option>
+                <option>Désert &amp; Aventure</option>
+                <option>Culture &amp; Patrimoine (AlUla, Hegra)</option>
+                <option>Luxe &amp; Gastronomie</option>
+                <option>Mer Rouge &amp; Nature</option>
+                <option>Circuit complet sur mesure</option>
+                <option>Autre / Je ne sais pas encore</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dates">Dates envisagées</label>
+                <input type="text" id="dates" name="dates" placeholder="Ex : octobre 2025" />
+              </div>
+              <div class="form-group">
+                <label for="budget">Budget par personne</label>
+                <select id="budget" name="budget">
+                  <option value="">— Fourchette —</option>
+                  <option>3 000 – 5 000 €</option>
+                  <option>5 000 – 10 000 €</option>
+                  <option>10 000 – 20 000 €</option>
+                  <option>+ 20 000 €</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message" placeholder="Parlez-nous de votre projet de voyage, vos envies, le nombre de voyageurs…"></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Envoyer ma demande →</button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="9 12 11.5 14.5 15.5 10"/>
+            </svg>
+            <h4>Message envoyé !</h4>
+            <p>Merci pour votre confiance. Notre équipe vous contactera dans les 24h.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════════════════════════════════ RÉSEAUX SOCIAUX -->
   <section id="social">
     <div class="container" style="max-width:600px; text-align:center;">
@@ -1150,7 +1383,7 @@
       <li><a href="#experiences">Expériences</a></li>
       <li><a href="#gallery">Galerie</a></li>
       <li><a href="#why">Nos atouts</a></li>
-      <li><a href="#cta">Contact</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
     <p class="footer-copy">© 2025 Maqam Concierge · Tous droits réservés</p>
   </footer>
@@ -1237,6 +1470,27 @@
       });
     }, { rootMargin: '-40% 0px -40% 0px' });
     sections.forEach(s => sectionIo.observe(s));
+
+    // ── Contact form ───────────────────────────────────────────────
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const required = contactForm.querySelectorAll('[required]');
+        let valid = true;
+        required.forEach(field => {
+          field.style.borderColor = '';
+          if (!field.value.trim()) {
+            field.style.borderColor = '#e05252';
+            valid = false;
+          }
+        });
+        if (!valid) return;
+        contactForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+      });
+    }
   </script>
 </body>
 </html>
